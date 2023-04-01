@@ -1,31 +1,37 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import HttpStatus from 'http-status-codes';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
 import IResult from './interfaces/IResults.interface';
+import routes from './routes/routes';
 
 class App {
-    public express: Application;
+    public express: express.Application;
 
     public constructor(){
         this.express = express();
-        this.setCors();
         this.setMiddlewares();
+        this.routes();
+        this.setCors();
         this.express.use(this.errorHandlerNotFound);
         this.express.use(this.errorHandler);
     }
 
+    private routes(){
+        this.express.use('/', routes);
+    }
+
     private setMiddlewares(){
-        this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(bodyParser.json());
         this.express.use(morgan('dev'));
     }
 
     private setCors() {
         const corsOptions = {
-          origin: ['http://localhost:4000', 'http://127.0.0.1:4000'],
+          origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
           methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
           allowedHeaders: ['Content-Type', 'Authorization'],
           exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
@@ -45,7 +51,7 @@ class App {
         next(error);
     }
 
-    private errorHandler(error: IResult, req: Request, res: Response, next: NextFunction): any {
+    private errorHandler(error: IResult, req: Request, res: Response, next: NextFunction) {
         res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR)
         return res.json({
             status: error.status,
