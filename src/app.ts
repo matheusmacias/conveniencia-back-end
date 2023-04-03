@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import IResult from './interfaces/IResults.interface';
+import IError from './interfaces/IError.interface';
 import routes from './routes/routes';
 
 class App {
@@ -44,14 +44,14 @@ class App {
       }
 
     private errorHandlerNotFound(req: Request, res: Response, next: NextFunction) {
-        const error: IResult = {
+        const error: IError = {
             status: HttpStatus.NOT_FOUND,
             message: 'Not Found'
         };
         next(error);
     }
 
-    private errorHandler(error: IResult, req: Request, res: Response, next: NextFunction) {
+    private errorHandler(error: IError, req: Request, res: Response, next: NextFunction) {
         res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR)
         return res.json({
             status: error.status,
