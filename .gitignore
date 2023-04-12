@@ -20,7 +20,7 @@ dist/
 .eslintcache
 *.js.map
 *.tsbuildinfo
-*.json
+*.lock
 
 # Arquivos de usuário
 .idea

@@ -22,6 +22,7 @@ class UserService {
                 message: 'Logado com sucesso!',
             };
         } catch (error) {
+            console.log(error);
             return handleError(error);
         }
     }
@@ -43,6 +44,7 @@ class UserService {
                 message: 'Conta criada com sucesso!',
             };
         } catch (error) {
+            console.log(error);
             return handleError(error);
         }
     }
