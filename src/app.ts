@@ -4,13 +4,15 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import { Container } from 'inversify';
 import IError from './interfaces/IError.interface';
-import routes from './routes/routes';
+import Routes from './routes/_routes';
+import container from './inject/container';
 
 class App {
     public express: express.Application;
 
-    public constructor(){
+    public constructor(private readonly _container: Container){
         this.express = express();
         this.setMiddlewares();
         this.routes();
@@ -20,6 +22,7 @@ class App {
     }
 
     private routes(){
+        const routes = this._container.resolve<Routes>(Routes).router;
         this.express.use('/', routes);
     }
 
@@ -60,4 +63,4 @@ class App {
     }
 }
 
-export default new App().express;
+export default new App(container).express;
