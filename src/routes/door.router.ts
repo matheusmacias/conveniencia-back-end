@@ -1,26 +1,17 @@
 import { Router } from "express";
 import { injectable, inject } from "inversify";
-import UserController from "../controllers/user.controller";
+import DoorController from "../controllers/door.controller";
 
 @injectable()
-export default class UserRouter {
-    public router: Router;
+export default class DoorRouter {
+  public router: Router;
 
-    constructor(
-        @inject(UserController) private readonly userController: UserController
-    ) {
-        this.router = Router();
-        this.routes();
-    }
+  constructor(@inject(DoorController) private readonly doorController: DoorController) {
+    this.router = Router();
+    this.routes();
+  }
 
-    private routes() {
-        this.router.post(
-            '/user/login',
-            this.userController.logIn
-        );
-        this.router.post(
-            '/user/create',
-            this.userController.signUp
-        );
-    }
+  private routes() {
+    this.router.post('/door', this.doorController.openDoor.bind(this.doorController));
+  }
 }

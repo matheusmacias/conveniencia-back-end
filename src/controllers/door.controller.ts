@@ -1,11 +1,14 @@
-import { Request, Response } from "express";
-import doorService from "../services/door.service";
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { Request, Response } from 'express';
+import DoorService from '../services/door.service';
 
 @injectable()
-export default class DoorController{
-    async openDoor(req: Request, res: Response){
-        const {status, message} = await doorService.openDoor();
-        res.status(status).send({message});
-    }
+export default class DoorController {
+  constructor(@inject(DoorService) private readonly _doorService: DoorService) {}
+
+  async openDoor(req: Request, res: Response) {
+    const { authToken } = req.body;
+    const { status, message } = await this._doorService.openDoor({ authToken });
+    res.status(status).send({ message });
+  }
 }

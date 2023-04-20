@@ -1,13 +1,15 @@
 import { User } from '../models/user.model';
 import HttpStatus from 'http-status-codes';
 import bcrypt, { hash } from 'bcrypt';
+import { injectable } from 'inversify';
 
 import IResult from '../interfaces/IResults.interface';
 import { CustomError } from '../err/custom.err';
 import { handleError } from '../err/handle.err';
 
-class UserService {
-    async logIn(email: string, password: string): Promise<IResult> {
+@injectable()
+export default class UserService {
+    async logIn({ email, password }: { email: string, password: string }): Promise<IResult> {
         try {
             const user = await User.findOne({ where: { email } });
             if (!user) {
@@ -27,7 +29,7 @@ class UserService {
         }
     }
 
-    async signup(name: string, email: string, password: string): Promise<IResult> {
+    async signup({name, email, password}: {name: string, email: string, password: string}): Promise<IResult> {
         try {
             const user = await User.findOne({ where: { email } });
             if (user) {
@@ -49,5 +51,3 @@ class UserService {
         }
     }
 }
-
-export default new UserService();

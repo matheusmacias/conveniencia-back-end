@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express';
 import HttpStatus from 'http-status-codes';
+import { Container } from 'inversify';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import { Container } from 'inversify';
 import IError from './interfaces/IError.interface';
 import Routes from './routes/_routes';
 import container from './inject/container';
@@ -44,7 +44,7 @@ class App {
           optionsSuccessStatus: 200,
         };
         this.express.use(cors(corsOptions));
-      }
+    }
 
     private errorHandlerNotFound(req: Request, res: Response, next: NextFunction) {
         const error: IError = {

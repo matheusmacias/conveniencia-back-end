@@ -1,5 +1,5 @@
-import { Router } from "express";
 import "reflect-metadata";
+import { Router } from "express";
 import { injectable, inject } from 'inversify';
 
 import UserRouter from "../routes/user.router";
