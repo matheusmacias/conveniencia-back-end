@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { injectable, inject } from "inversify";
 import UserController from "../controllers/user.controller";
-
+import { validateUserReg } from "../middlewares/user.middleware";
 
 @injectable()
 export default class UserRouter {
@@ -21,6 +21,7 @@ export default class UserRouter {
         );
         this.router.post(
             '/user/create',
+            validateUserReg,
             this.userController.signUp.bind(this.userController)
         );
     }

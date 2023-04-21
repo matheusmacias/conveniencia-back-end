@@ -11,13 +11,13 @@ export default class UserController {
 
     async logIn(req: Request, res: Response) {
         const { email, password } = req.body;
-        const { status, message } = await this._userService.logIn({email, password});
-        return res.status(status).send({ message, status });
+        const { status, message, token } = await this._userService.logIn({email, password});
+        return res.status(status).send({ message, token });
     }
 
     async signUp(req: Request, res: Response) {
         const { name, email, password } = req.body;
-        const { status, message } = await this._userService.signup({name, email, password});
-        return res.status(status).send({ message, status });
+        const { status, message, token } = await this._userService.signup({name, email, password});
+        return res.status(status).send({ message, token });
     }
 }

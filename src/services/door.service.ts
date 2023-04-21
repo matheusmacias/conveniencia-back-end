@@ -10,9 +10,10 @@ import { handleError } from '../err/handle.err';
 export default class DoorService{
     public async openDoor({authToken}:{authToken: string}): Promise<IResult>{
         try {
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1hdGhldXMgTWFjaWFzIn0.hsf8_qXXPRCR8PoZSpEtq5NjN0J-OjuYpKkBkhIH2m0';
             await axios.get('http://10.10.80.222',{
+                timeout:5000,
                 headers:{
+                    
                     Authorization: `Bearer ${authToken}`
                 }
             });

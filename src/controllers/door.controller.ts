@@ -7,7 +7,7 @@ export default class DoorController {
   constructor(@inject(DoorService) private readonly _doorService: DoorService) {}
 
   async openDoor(req: Request, res: Response) {
-    const { authToken } = req.body;
+    const authToken = req.headers.authorization?.split(" ")[1] || "";
     const { status, message } = await this._doorService.openDoor({ authToken });
     res.status(status).send({ message });
   }
