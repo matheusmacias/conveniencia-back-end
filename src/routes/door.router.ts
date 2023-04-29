@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { injectable, inject } from "inversify";
+
 import DoorController from "../controllers/door.controller";
 
 @injectable()

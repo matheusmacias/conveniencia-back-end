@@ -1,12 +1,14 @@
 import { HttpStatusCode } from 'axios';
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
+
 import IError from '../interfaces/IError.interface';
 
 const userSchema = z.object({
     name: z.string()
         .min(8, 'O nome deve ter no mínimo 8 caracteres')
-        .max(50, 'O nome deve ter no máximo 50 caracteres'),
+        .max(50, 'O nome deve ter no máximo 50 caracteres')
+        .optional(),
     email: z.string()
         .email('O email deve ser válido'),
     password: z.string()

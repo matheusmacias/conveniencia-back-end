@@ -55,11 +55,8 @@ class App {
     }
 
     private errorHandler(error: IError, req: Request, res: Response, next: NextFunction) {
-        res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR)
-        return res.json({
-            status: error.status,
-            message: error.message
-        });
+        return res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: error.message });
     }
 }
 

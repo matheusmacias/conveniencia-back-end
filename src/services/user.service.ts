@@ -11,8 +11,6 @@ import { handleError } from '../err/handle.err';
 
 dotenv.config();
 
-// process.env.PORT
-
 @injectable()
 export default class UserService {
 

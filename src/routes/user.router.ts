@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { injectable, inject } from "inversify";
+
 import UserController from "../controllers/user.controller";
 import { validateUserReg } from "../middlewares/user.middleware";
 
